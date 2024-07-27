@@ -2,36 +2,36 @@ local map = vim.keymap.set
 
 map("t", "<esc>", "<C-\\><C-n>", { noremap = true, silent = true })
 map("n", "<leader>tv", function()
-  vim.cmd("vsplit")
-  vim.cmd("vertical resize -25")
-  vim.cmd("terminal")
-  vim.cmd("startinsert")
-  vim.cmd("set nobuflisted")
+	vim.cmd("vsplit")
+	vim.cmd("vertical resize -25")
+	vim.cmd("terminal")
+	vim.cmd("startinsert")
+	vim.cmd("set nobuflisted")
 end, { desc = "Terminal Vertical" })
 map("n", "<leader>th", function()
-  vim.cmd("split")
-  vim.cmd("resize -10")
-  vim.cmd("terminal")
-  vim.cmd("startinsert")
-  vim.cmd("set nobuflisted")
+	vim.cmd("split")
+	vim.cmd("resize -10")
+	vim.cmd("terminal")
+	vim.cmd("startinsert")
+	vim.cmd("set nobuflisted")
 end, { desc = "Terminal Horizontal" })
 
 map("n", "<leader>hv", function()
-  local win_size = vim.api.nvim_win_get_width(0)
-  if win_size < 120 then
-    vim.cmd("tabe %")
-  else
-    vim.cmd("tabclose")
-  end
+	local win_size = vim.api.nvim_win_get_width(0)
+	if win_size < 120 then
+		vim.cmd("tabe %")
+	else
+		vim.cmd("tabclose")
+	end
 end, { desc = "Toggle Vertical Terminal" })
 
 map("n", "<leader>hh", function()
-  local win_size = vim.api.nvim_win_get_height(0)
-  if win_size < 35 then
-    vim.cmd("tabe %")
-  else
-    vim.cmd("tabclose")
-  end
+	local win_size = vim.api.nvim_win_get_height(0)
+	if win_size < 35 then
+		vim.cmd("tabe %")
+	else
+		vim.cmd("tabclose")
+	end
 end, { desc = "Toggle Horizontal Terminal" })
 
 -- better up/down
@@ -69,18 +69,6 @@ map("n", "<leader>d", "<cmd>BufDel<cr>", { desc = "Delete Buffer" })
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
--- Macros
-map("n", "<leader>rt", "v^yi<lt><End>><Ignore>", { desc = "Create React Tag", remap = true })
-
--- Clear search, diff update and redraw
--- taken from runtime/lua/_editor.lua
-map(
-  "n",
-  "<leader>ur",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff Update" }
-)
-
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
@@ -100,11 +88,11 @@ map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-  severity = severity and vim.diagnostic.severity[severity] or nil
-  return function()
-    go({ severity = severity })
-  end
+	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	severity = severity and vim.diagnostic.severity[severity] or nil
+	return function()
+		go({ severity = severity })
+	end
 end
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
